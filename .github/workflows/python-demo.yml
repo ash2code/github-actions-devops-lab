@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     paths:
       - sample_python_project/**
-      - .github/workflows/python-tests.yml
+      - .github/workflows/python-demo.yml
 
 jobs:
   build:
