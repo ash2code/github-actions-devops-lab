@@ -3,9 +3,9 @@ name: demo project
 on:
   push:
     branches: [ main ]
-  paths:
-    - sample_python_project/**
-    - sample_python_project/.github/workflows/python-tests.yml
+    paths:
+      - sample_python_project/**
+      - sample_python_project/.github/workflows/python-tests.yml
 
 jobs:
   build:
