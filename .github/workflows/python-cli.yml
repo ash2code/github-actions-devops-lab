@@ -6,7 +6,7 @@ on:
     branches: [ main ]
     paths:
       - sample_python_cli/**
-      - .github/workflows/python-demo.yml
+      - .github/workflows/python-python-cli.yml
 
 jobs:
     build:
