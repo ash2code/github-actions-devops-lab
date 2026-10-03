@@ -29,6 +29,6 @@ jobs:
         run: java --version
 
       - name: build the project with maven
-        run:  mvn -B package --file $/PRO_DIR/pom.xml
+        run:  mvn -B package --file $PRO_DIR/pom.xml
 
 
