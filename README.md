@@ -1,2 +1,2 @@
 github actions projects
-1) python project
+1) sample python project
