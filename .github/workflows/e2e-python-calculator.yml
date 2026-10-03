@@ -34,9 +34,10 @@ jobs:
           run: python $pro_dir/src/calculator.py 
         
         - name: test the code 
-          run: pytest $pro_dir/tests/test_calculator.py 
+          run: PYTHONPATH=$pro_dir/src pytest $pro_dir/tests/test_calculator.py 
 
   python-docker-build:
+      needs: python-build-and-test
       runs-on: ubuntu-latest 
 
       steps:
