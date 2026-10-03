@@ -38,7 +38,6 @@ jobs:
             - name: docker image push 
               run: 
                 docker push ${{secrets.DOCKER_USERNAME}}/python_cli:${{ github.run_number }}
-                    - name: Upload Vulnerability Scan Results
 
             - name: upload trivy scan reports
               uses: actions/upload-artifact@v4
