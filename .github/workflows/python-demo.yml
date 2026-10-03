@@ -24,13 +24,23 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/python-demo:${{env.BUILD_NUMBER}} ./sample_python_project
+        
+      - name: Trivy Image Scanner
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
-          context: ./sample_python_project
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/python-demo:${{env.BUILD_NUMBER}}
+          image-ref: ${{ secrets.DOCKER_USERNAME }}/python-demo:${{env.BUILD_NUMBER}}
+          format: 'table'
+      
+      - name: Push Docker Image
+        run : |
+          docker push ${{ secrets.DOCKER_USERNAME }}/python-demo:${{env.BUILD_NUMBER}}
 
+
+
+        
        
       
 
