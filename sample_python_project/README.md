@@ -31,4 +31,4 @@ Then open:
 - `http://localhost:5000/health`
 - `http://localhost:5000/add?a=5&b=7`
 
-The app exposes a simple health check and integer addition endpoint.
+The app exposes a simple health check and integer addition endpoint..
