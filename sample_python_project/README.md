@@ -8,7 +8,7 @@ This project contains a small Flask application and unit tests for GitHub Action
 - `tests/test_calculator.py` - basic Flask API tests
 - `requirements.txt` - app and test dependencies
 - `.github/workflows/python-tests.yml` - CI workflow
-- `.gitignore` - ignores Python artifacts
+- `.gitignore` - ignores Python artifacts.
 
 ## Run locally
 
