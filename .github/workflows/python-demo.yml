@@ -29,7 +29,7 @@ jobs:
         with:
           context: ./sample_python_project
           push: true
-          tags: python-demo/ash2code:${{env.BUILD_NUMBER}}
+          tags: ${{ secrets.DOCKER_USERNAME }}/python-demo:${{env.BUILD_NUMBER}}
 
        
       
