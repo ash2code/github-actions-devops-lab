@@ -1,0 +1,59 @@
+name: end to end python calculator  CI 
+run-name: python-calculator #${{ github.run_number }}
+
+on: 
+  push:
+    branches: [main]
+  paths: 
+    - end-to-end-python-project/**
+    - .github/workflows/e2e-python-calculator.yml 
+
+env:
+  BUILD_NUMBER: ${{ github.run_number }}
+  pro_dir: end-to-end-python-project 
+
+jobs:
+  python-build-and-test:
+      runs-on: ubuntu-latest 
+        
+      steps:
+
+        - name: checkout the code 
+          uses: actions/checkout@v7
+
+        - name: setup the python 
+          uses: actions/setup-python@v7
+          with:
+            python-version: '3.13' 
+        
+        - name: install the dependencies
+          run: pip install -r $pro_dir/requirements.txt 
+
+        
+        - name: run the source code 
+          run: python $pro_dir/src/calculator.py 
+        
+        - name: test the code 
+          run: pytest $pro_dir/tests/test_calculator.py 
+
+  python-docker-build:
+      runs-on: ubuntu-latest 
+
+      steps:
+        - name: check out the code 
+          uses: actions/checkout@v7
+
+        - name: docker login 
+          uses: docker/login-action@v4
+          with:
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+        
+        - name: docker build 
+          run: docker build -t ${{ secrets.DOCKER_USERNAME }}/e2e-python:${{ env.BUILD_NUMBER }} ./$pro_dir
+        
+        - name: docker push 
+          run: docker push ${{ secrets.DOCKER_USERNAME }}/e2e-python:${{ env.BUILD_NUMBER }}
+
+
+  

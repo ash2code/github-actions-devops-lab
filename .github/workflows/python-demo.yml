@@ -37,12 +37,3 @@ jobs:
       - name: Push Docker Image
         run : |
           docker push ${{ secrets.DOCKER_USERNAME }}/python-demo:${{env.BUILD_NUMBER}}
-
-
-
-        
-       
-      
-
-
-  
