@@ -24,7 +24,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       
-      - name: Build Docker Image
+      - name: Build-Docker Image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/python-demo:${{env.BUILD_NUMBER}} ./sample_python_project
         
