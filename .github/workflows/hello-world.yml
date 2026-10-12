@@ -24,7 +24,7 @@ jobs:
             run: chmod +x ./hello-world-CI/hello-world.sh   
         
           - name: run the shellscript 
-            run: sh hello-world.sh 
+            run: cd ./hello-world-CI && sh hello-world.sh 
         
 
 
