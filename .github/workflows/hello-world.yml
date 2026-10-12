@@ -1,0 +1,23 @@
+name: hello world demo
+run-name: hello-world #${{github.run_number}}
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - hello-world-CI/**
+      - .github/workflows/hello-world.yml
+
+jobs:
+    hello:
+        runs-on: ubuntu-latest 
+        
+        steps:
+          - name: give execute permission
+            run: chmod +x hello-world.sh   
+        
+          - name: run the shellscript 
+            run: sh hello-world.sh 
+        
+
+
