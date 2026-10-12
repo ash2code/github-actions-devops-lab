@@ -13,6 +13,13 @@ jobs:
         runs-on: ubuntu-latest 
         
         steps:
+    
+          - name: check out the code 
+            uses: actions/checkout@v4
+
+          - name: check the path 
+            run: pwd 
+        
           - name: give execute permission
             run: chmod +x hello-world.sh   
         
