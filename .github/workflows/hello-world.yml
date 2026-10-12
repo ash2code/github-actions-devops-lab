@@ -21,7 +21,7 @@ jobs:
             run: pwd 
         
           - name: give execute permission
-            run: chmod +x hello-world.sh   
+            run: chmod +x ./hello-world-CI/hello-world.sh   
         
           - name: run the shellscript 
             run: sh hello-world.sh 
