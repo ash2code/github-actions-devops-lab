@@ -3,10 +3,13 @@ run-name: githubactions python cli #${{ github.run_number }}
 
 on:
   push:
-    branches: main
-  paths:
-    - github-actions-python-cli/**
-    - .github/workflows/github-actions-python-cli-CI.yml 
+    branches: [main]
+    paths:
+      - github-actions-python-cli/**
+      - .github/workflows/github-actions-python-cli-CI.yml 
+
+  workflow_dispatch:
+
 
 jobs:
     python-cli:
@@ -22,10 +25,10 @@ jobs:
               python-version: "3.12"
          
           - name: install python dependencies
-            run: pip install -m requirements.txt
+            run: pip install -r requirements.txt
         
           - name: run lint checks
-            run: ruff check .
+            run: ruff check github-actions-python-cli/*
         
           - name: run python tests
             run: pytest -v 
