@@ -31,4 +31,4 @@ jobs:
             run: ruff check github-actions-python-cli/
         
           - name: run python tests
-            run: pytest -v 
+            run: pytest -v github-actions-python-cli/tests/
