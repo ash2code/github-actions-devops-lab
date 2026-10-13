@@ -9,6 +9,16 @@ on:
       - adv-gha-cli/app.py
       - .github/workflows/adv-gha-cli.yml
 
+  workflow_dispatch:
+    inputs:
+      run_type:
+        description: "select the type of run"
+        required: true
+        type: choice
+        options:
+          - quick
+          - full
+
 jobs:
   adv-gha-cli:
     runs-on: ubuntu-latest
@@ -33,5 +43,6 @@ jobs:
         run: ruff check .
 
       - name: run python tests
+        if: ${{ inputs.run_type == 'quick' }}
         run: python -m pytest -v tests/
 
