@@ -1,0 +1,31 @@
+name: github actions python cli
+run-name: githubactions python cli #${{ github.run_number }}
+
+on:
+  push:
+    branches: main
+  paths:
+    - github-actions-python-cli/**
+    - .github/workflows/github-actions-python-cli-CI.yml 
+
+jobs:
+    python-cli:
+        runs-on: Ubuntu-latest
+
+        steps:
+          - name: check out the code 
+            uses: actions/checkout@v6
+        
+          - name: install the python
+            uses: actions/setup-python@v6
+            with:
+              python-version: "3.12"
+         
+          - name: install python dependencies
+            run: pip install -m requirements.txt
+        
+          - name: run lint checks
+            run: ruff check .
+        
+          - name: run python tests
+            run: pytest -v 
