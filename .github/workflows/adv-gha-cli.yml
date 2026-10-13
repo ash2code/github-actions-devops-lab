@@ -1,0 +1,37 @@
+name: advanced github actions python cli 
+run-name: adv-gha-cli #${{ github.run_name }}
+
+on:
+  push:
+    branches: [main]
+
+    paths:
+      - adv-gha-cli/app.py
+      - .github/workflows/adv-gha-cli.yml
+
+jobs:
+  adv-gha-cli:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run: 
+        working-directory: adv-gha-cli
+
+    steps:
+      - name: code checkout 
+        uses: actions/checkout@v6
+
+      - name: setup python
+        uses: actions/python-setup@v6
+        with:
+          python-version: "3.12"
+      
+      - name: install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: run lint
+        run: ruff check .
+
+      - name: run python tests
+        run: python -m pytest -v tests/
+
