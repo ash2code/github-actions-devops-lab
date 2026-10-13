@@ -28,7 +28,7 @@ jobs:
             run: pip install -r github-actions-python-cli/requirements.txt
         
           - name: run lint checks
-            run: ruff check github-actions-python-cli/*
+            run: ruff check github-actions-python-cli/
         
           - name: run python tests
             run: pytest -v 
