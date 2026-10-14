@@ -1,0 +1,90 @@
+name: github actions parallel CI pipeline
+run-name: parallel CI #${{ github.run_number }}
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - parallel-ci/**
+      - .github/workflows/parallel-ci-pipeline.yml
+
+  workflow_dispatch:
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+         working-directory: parallel-ci
+    
+    steps:
+      - name: code checkout
+        uses: actions/checkout@v6
+
+      - name: setup python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+    
+      - name: install dependencies 
+        run: pip install -r requirements.txt
+
+      - name: ruff check
+        run: ruff check .
+  tests:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run: 
+        working-directory: parallel-ci
+    
+    steps:
+      - name: code checkout
+        uses: actions/checkout@v6
+
+      - name: setup python
+        uses: actions/setup-python@v6
+        with:
+           python-version: "3.12"
+    
+      - name: install dependencies 
+        run: pip install -r requirements.txt
+
+      - name: run python tests
+        run: python -m pytest -v tests/  --html=test-report.html --self-contained-html
+    
+      - name: upload test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: test-report.html
+
+
+  report:
+    name: Final report
+    needs: [lint,tests] 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: download test reports
+        uses: actions/download-artifact@v4
+        with: 
+          name: test-report
+          path: reports
+
+          
+
+
+
+
+
+
+
+
+
+    
+
+
+
