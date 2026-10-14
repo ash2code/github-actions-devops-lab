@@ -1,0 +1,86 @@
+name: Kubernetes CI CD
+run-name: k8s ci #${{ github.run_name }}
+
+on:
+  push:
+    branches: [main]
+    paths:
+      -  k8s/kind-cli/**
+      - .github/workflows/k8s-ci-cd.yml
+
+jobs:
+  python-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v6
+    
+      - name: python setup
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+    
+
+      - name: install dependencies python
+        run: pip install -r requirements.txt
+
+      - name: run lint
+        run: ruff check --fix
+
+      - name: run tests
+        run: python -m pytest -v tests/
+  
+  containerization:
+    needs: python-ci
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v6
+
+      - name: docker login
+        uses: actions/login-action@v4
+        with:
+           username: ${{ secrets.DOCKER_USERNAME }}
+           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: docker build
+        run: docker build -t ash2code/k8s-ci .
+    
+      - name: docker tag
+        run: docker tag ash2code/k8s-ci:v${{ github.run_number }}
+
+      - name: docker push
+        run: docker push ash2code/k8s-ci:v${{ github.run_number }}
+
+  k8s-deployment:
+    needs: containerization
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v6
+
+      - name: create kind cluster
+        uses: helm/kind-action@v1
+        with:
+          cluster-name: devops-cluster
+     
+      - name: verify kubernetes cluster
+        run: kubectl get nodes 
+
+      
+
+
+
+
+
+
+
+
+
+
+
