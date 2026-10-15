@@ -56,7 +56,7 @@ jobs:
         run: docker build -t ash2code/k8s-ci .
     
       - name: docker tag
-        run: docker tag ash2code/k8s-ci:v${{ github.run_number }}
+        run: docker tag ash2code/k8s-ci ash2code/k8s-ci:v${{ github.run_number }}
 
       - name: docker push
         run: docker push ash2code/k8s-ci:v${{ github.run_number }}
