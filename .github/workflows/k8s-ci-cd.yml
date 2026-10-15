@@ -73,13 +73,13 @@ jobs:
       - name: checkout the code
         uses: actions/checkout@v6
 
-      - name: create kind cluster
-        uses: helm/kind-action@v1
-        with:
-          cluster-name: devops-cluster
+      - name: start minikube cluster
+        uses: medyagh/setup-minikube@latest
      
       - name: verify kubernetes cluster
         run: kubectl get nodes 
+
+      
 
       
 
