@@ -38,6 +38,9 @@ jobs:
     needs: python-ci
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: k8s-kind-ci
 
     steps:
       - name: checkout the code
@@ -62,6 +65,9 @@ jobs:
     needs: containerization
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: k8s-kind-ci
 
     steps:
       - name: checkout the code
