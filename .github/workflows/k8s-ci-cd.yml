@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      -  k8s/kind-cli/**
+      -  k8s-kind-cli/**
       - .github/workflows/k8s-ci-cd.yml
 
 jobs:
