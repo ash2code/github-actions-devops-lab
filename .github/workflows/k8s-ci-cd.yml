@@ -7,6 +7,8 @@ on:
     paths:
       -  k8s-kind-ci/**
       - .github/workflows/k8s-ci-cd.yml
+  
+  workflow_dispatch:
 
 jobs:
   python-ci:
